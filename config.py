@@ -9,18 +9,18 @@ from pyrogram import filters
 load_dotenv()
 # ------------------------------------
 # -----------------------------------------------------
-API_ID = getenv("API_ID")
+API_ID = int(getenv("API_ID"))
 API_HASH = getenv("API_HASH")
 # ------------------------------------------------------
 BOT_TOKEN = getenv("BOT_TOKEN")
 # -------------------------------------------------------
-OWNER_USERNAME = getenv("OWNER_USERNAME","alone_x_hater")
+OWNER_USERNAME = getenv("OWNER_USERNAME","iam_daxx")
 # --------------------------------------------------------
-BOT_USERNAME = getenv("BOT_USERNAME")
+BOT_USERNAME = getenv("BOT_USERNAME" , "NexikoBot")
 # --------------------------------------------------------
-BOT_NAME = getenv("BOT_NAME")
+BOT_NAME = getenv("BOT_NAME" , "Nexiko")
 # ---------------------------------------------------------
-ASSUSERNAME = getenv("ASSUSERNAME")
+ASSUSERNAME = getenv("ASSUSERNAME" , "MissYumikoo")
 # ---------------------------------------------------------
 
 
@@ -35,10 +35,10 @@ DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 17000))
 # ----------------------------------------------------------------
 
 # ----------------------------------------------------------------
-LOGGER_ID = int(getenv("LOGGER_ID", -1002048925723))
+LOGGER_ID = int(getenv("LOGGER_ID", -1001919135283))
 # ----------------------------------------------------------------
 # ----------------------------------------------------------------
-OWNER_ID = int(getenv("OWNER_ID", 6257270528))
+OWNER_ID = int(getenv("OWNER_ID", 6664582540))
 # -----------------------------------------------------------------
 # -----------------------------------------------------------------
 
@@ -51,8 +51,11 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 # ----------------------------------------------------------------
 # ----------------------------------------------------------------
 # ----------------------------------------------------------------
-
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
+UPSTREAM_REPO = getenv(
+    "UPSTREAM_REPO",
+    "https://github.com/Sohampro6540/DAXXMUSIC",
+)
+UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "Master")
 GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  # ----------------------------------------------------------------
@@ -64,9 +67,9 @@ GIT_TOKEN = getenv(
 
 # ------------------------------------------------------------------------
 # -------------------------------------------------------------------------
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/Blade_x_community")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/Blade_x_support")
-# groupz-------------------------------------------------------------------------
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/team_jjk")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT💬", "https://t.me/team_jjk")
+# ------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------
 
 
@@ -96,7 +99,7 @@ SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "709e1a2969664491b582008
 
 
 # -----------------------------------------------------------------------------------
-PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", 150))
+PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", 25))
 # ------------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------------
@@ -137,6 +140,7 @@ confirmer = {}
 # ------------------------------------------------------------------------
 # ------------------------------------------------------------------------
 # ------------------------------------------------------------------------
+
 START_IMG_URL = getenv(
     "START_IMG_URL", "https://telegra.ph/file/18f0d4df0da505655c549.jpg"
 )
