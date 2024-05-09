@@ -156,7 +156,7 @@ SOUNCLOUD_IMG_URL = "https://telegra.ph/file/e95e208fb999d9c265e53.jpg"
 YOUTUBE_IMG_URL = "https://telegra.ph/file/933054c6310c73d8497b1.jpg"
 SPOTIFY_ARTIST_IMG_URL = "https://telegra.ph/file/b834b4084232b020cd315.jpg"
 SPOTIFY_ALBUM_IMG_URL = "https://telegra.ph/file/e95e208fb999d9c265e53.jpg"
-SPOTIFY_PLAYLIST_IMG_URL = "https://telegra.ph/file/e95e208fb999d9c265e53.jpg"
+SPOTIFY_PLAYLIST_IMG_URL = "https://telegra.ph/file/b834b4084232b020cd315.jpg"
 
 # ------------------------------------------------------------------------
 # ------------------------------------------------------------------------
