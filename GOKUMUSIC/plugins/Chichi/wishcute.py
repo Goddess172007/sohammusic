@@ -4,7 +4,6 @@ import random
 import requests
 from GOKUMUSIC import app 
 
-SUPPORT_CHAT = "goku_groupz"
 
 @app.on_message(filters.command("wish"))
 async def wish(_, m):
@@ -25,11 +24,10 @@ async def wish(_, m):
         animation=url,
         caption=wish,
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("ꜱᴜᴘᴘᴏʀᴛ", url=f"https://t.me/{SUPPORT_CHAT}")]])
+           
     )
             
     
-BUTTON = [[InlineKeyboardButton("ꜱᴜᴘᴘᴏʀᴛ", url=f"https://t.me/{SUPPORT_CHAT}")]]
 CUTIE = "https://64.media.tumblr.com/d701f53eb5681e87a957a547980371d2/tumblr_nbjmdrQyje1qa94xto1_500.gif"
 
 @app.on_message(filters.command("cute"))
