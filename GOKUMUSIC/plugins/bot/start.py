@@ -26,19 +26,19 @@ from GOKUMUSIC.utils.inline import help_pannel, private_panel, start_panel
 from config import BANNED_USERS
 from Strings import get_string
 
-# Photo URLs
-NEXI_PHOTOS = [
-    "https://telegra.ph/file/3732890ce34a1d90241d5.jpg",
-    "https://telegra.ph/file/52eb59144b78a55f0ce19.jpg",
-    "https://telegra.ph/file/0d727699e5d1414ac3751.jpg",
-    "https://telegra.ph/file/bf6f071c6c0224bd11b98.jpg",
-    "https://telegra.ph/file/0fffe71d3e2d40a9dcec2.jpg",
-    "https://telegra.ph/file/cd130972b715287dc7b92.jpg",
-    "https://telegra.ph/file/0708dc3ab998b72250409.jpg",
-    "https://telegra.ph/file/2a2adf52e3dfb9dc25b7c.jpg",
-    "https://telegra.ph/file/531e83e497ebb57aa9714.jpg",
-    "https://telegra.ph/file/685360e46e29cf0aacbe3.jpg",
+
+NEXI_VID = [
+"https://telegra.ph/file/1a3c152717eb9d2e94dc2.mp4",
+"https://graph.org/file/ba7699c28dab379b518ca.mp4",
+"https://graph.org/file/83ebf52e8bbf138620de7.mp4",
+"https://graph.org/file/82fd67aa56eb1b299e08d.mp4",
+"https://graph.org/file/318eac81e3d4667edcb77.mp4",
+"https://graph.org/file/7c1aa59649fbf3ab422da.mp4",
+"https://graph.org/file/2a7f857f31b32766ac6fc.mp4",
+
 ]
+
+
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
@@ -48,8 +48,8 @@ async def start_pm(client, message: Message, _):
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
             keyboard = help_pannel(_)
-            return await message.reply_photo(
-                random.choice(NEXI_PHOTOS),
+            return await message.reply_video(
+                random.choice(NEXI_VID),
                 caption=_["help_1"].format(config.SUPPORT_CHAT),
                 reply_markup=keyboard,
             )
@@ -83,7 +83,6 @@ async def start_pm(client, message: Message, _):
                     [
                         InlineKeyboardButton(text=_["S_B_8"], url=link),
                         InlineKeyboardButton(text=_["S_B_9"], url=config.SUPPORT_CHAT),
-                        InlineKeyboardButton(text="SUPPORT_GROUP", url="https://t.me/Blade_x_support")
                     ],
                 ]
             )
@@ -101,8 +100,8 @@ async def start_pm(client, message: Message, _):
                 )
     else:
         out = private_panel(_)
-        await message.reply_photo(
-            random.choice(NEXI_PHOTOS),
+        await message.reply_video(
+            random.choice(NEXI_VID),
             caption=_["start_2"].format(message.from_user.mention, app.mention),
             reply_markup=InlineKeyboardMarkup(out),
         )
@@ -112,14 +111,58 @@ async def start_pm(client, message: Message, _):
                 text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
             )
 
+
 @app.on_message(filters.command(["start"]) & filters.group & ~BANNED_USERS)
 @LanguageStart
 async def start_gp(client, message: Message, _):
     out = start_panel(_)
     uptime = int(time.time() - _boot_)
-    await message.reply_photo(
-        random.choice(NEXI_PHOTOS),
+    await message.reply_video(
+        random.choice(NEXI_VID),
         caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
         reply_markup=InlineKeyboardMarkup(out),
     )
     return await add_served_chat(message.chat.id)
+
+
+@app.on_message(filters.new_chat_members, group=-1)
+async def welcome(client, message: Message):
+    for member in message.new_chat_members:
+        try:
+            language = await get_lang(message.chat.id)
+            _ = get_string(language)
+            if await is_banned_user(member.id):
+                try:
+                    await message.chat.ban_member(member.id)
+                except:
+                    pass
+            if member.id == app.id:
+                if message.chat.type != ChatType.SUPERGROUP:
+                    await message.reply_text(_["start_4"])
+                    return await app.leave_chat(message.chat.id)
+                if message.chat.id in await blacklisted_chats():
+                    await message.reply_text(
+                        _["start_5"].format(
+                            app.mention,
+                            f"https://t.me/{app.username}?start=sudolist",
+                            config.SUPPORT_CHAT,
+                        ),
+                        disable_web_page_preview=True,
+                    )
+                    return await app.leave_chat(message.chat.id)
+
+                out = start_panel(_)
+                await message.reply_video(
+                    random.choice(NEXI_VID),
+                    caption=_["start_3"].format(
+                        message.from_user.mention,
+                        app.mention,
+                        message.chat.title,
+                        app.mention,
+                    ),
+                    reply_markup=InlineKeyboardMarkup(out),
+                )
+                await add_served_chat(message.chat.id)
+                await message.stop_propagation()
+        except Exception as ex:
+            print(ex)
