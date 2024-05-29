@@ -23,7 +23,7 @@ BOT_NAME = getenv("BOT_NAME" , "Nexiko")
 ASSUSERNAME = getenv("ASSUSERNAME" , "MissYumikoo")
 # ---------------------------------------------------------
 
-
+DEEP_API = getenv("DEEP_API", "5163c49d-b696-47f1-8cf9-4801738436dd")
 #---------------------------------------------------------------
 #---------------------------------------------------------------
 MONGO_DB_URI = getenv("MONGO_DB_URI", None)
