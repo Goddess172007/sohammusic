@@ -1,7 +1,7 @@
 from typing import BinaryIO, Dict, List
 import time, os, httpx
 from uuid import uuid4
-from GOKUMUSIC import app
+from DAXXMUSIC import app
 from pyrogram.enums import MessageMediaType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pyrogram import Client, filters
@@ -16,7 +16,7 @@ API_URL: str = "https://sasta-api.vercel.app/googleLensSearch"
 async_client: httpx.AsyncClient = httpx.AsyncClient(timeout=120)
 
 class STRINGS:
-    REPLY_TO_MEDIA: str = "**ᴘʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ ᴛʜᴀᴛ ᴄᴏɴᴛᴀɪɴs ᴏɴᴇ ᴏғ ᴛʜᴇ sᴜᴘᴘᴏʀᴛᴇᴅ ᴍᴇᴅɪᴀ ᴛʏᴘᴇs, sᴜᴄʜ ᴀs ᴀ ᴘʜᴏᴛᴏ ᴏʀ ɪᴍᴀɢᴇ ᴀɴᴅ ғɪʟᴇ.**"
+    REPLY_TO_MEDIA: str = "**ᴘʟᴇᴡsᴇ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ ᴛʜᴀᴛ ᴄᴏɴᴛᴀɪɴs ᴏɴᴇ ᴏғ ᴛʜᴇ sᴜᴘᴘᴏʀᴛᴇᴅ ᴍᴇᴅɪᴀ ᴛʏᴘᴇs, sᴜᴄʜ ᴀs ᴀ ᴘʜᴏᴛᴏ ᴏʀ ɪᴍᴀɢᴇ ᴀɴᴅ ғɪʟᴇ.**"
     UNSUPPORTED_MEDIA_TYPE: str = "⚠️ **ᴜɴsᴜᴘᴘᴏʀᴛᴇᴅ ᴍᴇᴅɪᴀ ᴛʏᴘᴇ !**\n**ᴘʟᴇᴡsᴇ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ ᴛʜᴀᴛ ᴄᴏɴᴛᴀɪɴs ᴏɴᴇ ᴏғ ᴛʜᴇ sᴜᴘᴘᴏʀᴛᴇᴅ ᴍᴇᴅɪᴀ ᴛʏᴘᴇs, sᴜᴄʜ ᴀs ᴀ ᴘʜᴏᴛᴏ ᴏʀ ɪᴍᴀɢᴇ ᴀɴᴅ ғɪʟᴇ.**"
     
     DOWNLOADING_MEDIA: str = "⏳ **ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴍᴇᴅɪᴀ...**"
@@ -90,7 +90,3 @@ async def on_reverse(app: app, message: Message) -> None:
         ]
     await message.reply(text, disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(buttons))
     await status_msg.delete()
-
-
-
-
