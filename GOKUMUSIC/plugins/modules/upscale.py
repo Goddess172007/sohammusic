@@ -1,52 +1,74 @@
-import base64
-import httpx
 import os
-import config 
-from config import BOT_USERNAME
+import aiofiles
+import aiohttp
+import logging
+from config import DEEP_API, BOT_USERNAME
 from GOKUMUSIC import app
 from pyrogram import Client, filters
-import pyrogram
+from pyrogram.types import Message
 from uuid import uuid4
-from pyrogram.types import InlineKeyboardButton,InlineKeyboardMarkup
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-import aiofiles, aiohttp, requests
-
-
-async def image_loader(image: str, link: str):
+async def image_loader(image: str, link: str) -> str:
+    """Download image from a URL and save it locally."""
     async with aiohttp.ClientSession() as session:
         async with session.get(link) as resp:
             if resp.status == 200:
-                f = await aiofiles.open(image, mode="wb")
-                await f.write(await resp.read())
-                await f.close()
+                async with aiofiles.open(image, mode="wb") as f:
+                    await f.write(await resp.read())
                 return image
-            return image
-            
+            else:
+                logger.error(f"Failed to download image, status code: {resp.status}")
+                raise Exception(f"Failed to download image, status code: {resp.status}")
+
+async def upscale_image_api(image_path: str) -> dict:
+    """Call the DeepAI API to upscale the image."""
+    async with aiohttp.ClientSession() as session:
+        async with session.post(
+            "https://api.deepai.org/api/torch-srgan",
+            data={'image': open(image_path, 'rb')},
+            headers={'api-key': DEEP_API}
+        ) as resp:
+            if resp.status != 200:
+                logger.error(f"API request failed with status code: {resp.status}")
+                raise Exception(f"API request failed with status code: {resp.status}")
+            return await resp.json()
 
 @app.on_message(filters.command("upscale", prefixes="/"))
-async def upscale_image(client, message):
+async def upscale_image(client: Client, message: Message):
+    """Handle /upscale command to upscale an image using DeepAI API."""
     chat_id = message.chat.id
     replied = message.reply_to_message
-    if not config.DEEP_API:
-        return await message.reply_text("I can't upscale !")
-    if not replied:
-        return await message.reply_text("Please Reply To An Image ...")
-    if not replied.photo:
-        return await message.reply_text("Please Reply To An Image ...")
-    aux = await message.reply_text("Please Wait ...")
+
+    if not DEEP_API:
+        return await message.reply_text("API key is not configured. Cannot upscale the image.")
+    
+    if not replied or not replied.photo:
+        return await message.reply_text("Please reply to an image to upscale it.")
+    
+    aux = await message.reply_text("Processing the image, please wait...")
+    
     image = await replied.download()
-    data = requests.post(
-        "https://api.deepai.org/api/torch-srgan",
-        files={
-            'image': open(image, 'rb'),
-        },
-        headers={'api-key': config.DEEP_API}
-    ).json()
-    image_link = data["output_url"]
-    downloaded_image = await image_loader(image, image_link)
-    await aux.delete()
-    return await message.reply_document(downloaded_image)
+    
+    try:
+        data = await upscale_image_api(image)
+        
+        if "output_url" not in data:
+            logger.error(f"Failed to upscale the image. API response: {data}")
+            raise Exception("Failed to upscale the image. API response: " + str(data))
+        
+        image_link = data["output_url"]
+        downloaded_image = await image_loader(image, image_link)
+        
+        await aux.delete()
+        await message.reply_document(downloaded_image)
+        
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+        await aux.edit_text(f"An error occurred: {e}")
+    finally:
+        os.remove(image)
 
-
-# -----------------------------
