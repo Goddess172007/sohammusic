@@ -73,8 +73,8 @@ RUN apt update && apt upgrade -y && \
 RUN pip3 install --upgrade pip setuptools
 
 # Copy local files to the container
-COPY . /root/Waifubot-
-WORKDIR /root/Waifubot-
+COPY . /root/sohammusic-
+WORKDIR /root/sohammusic-
 
 # Install Python requirements
 RUN pip3 install -U -r requirements.txt
