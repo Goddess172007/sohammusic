@@ -9,6 +9,8 @@ asyncio
 beautifulsoup4
 daxxhub
 deepai
+flask==2.3.2
+Flask[async]
 python-whois
 dnspython
 ffmpeg-python
