@@ -10,9 +10,8 @@ load_dotenv()
 # ------------------------------------
 # -----------------------------------------------------
 API_ID = getenv("22451491")
-if API_ID is None:
-    raise ValueError("API_ID environment variable is not set.")
-API_ID = int(API_ID)
+
+
 API_HASH = getenv("28e74942125f7e4968398ea651cd417b")
 # ------------------------------------------------------
 BOT_TOKEN = getenv("6932352695:AAG7ozdXA3jcwTOznBvNvgQWgOG3QH--NZc") 
