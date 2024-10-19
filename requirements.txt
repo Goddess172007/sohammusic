@@ -1,11 +1,10 @@
-numpy==1.26.4
+numpy==1.24.3  # Adjusted version
 opencv-python
 aiofiles
 bard
 SpeechRecognition
 pornhub-api==0.2.0
 aiohttp 
-asyncio 
 beautifulsoup4
 daxxhub
 deepai
@@ -22,7 +21,6 @@ pycountry
 heroku3
 apscheduler
 motor 
-numpy
 pillow==9.5.0
 psutil
 wget
@@ -58,4 +56,3 @@ python-telegram-bot==20.7
 img2pdf
 cloudscraper
 pycryptodome
-opencv-python
