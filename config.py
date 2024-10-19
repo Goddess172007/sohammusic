@@ -9,7 +9,7 @@ from pyrogram import filters
 load_dotenv()
 # ------------------------------------
 # -----------------------------------------------------
-AAPI_ID = getenv("22451491")
+API_ID = getenv("22451491")
 if API_ID is None:
     raise ValueError("API_ID environment variable is not set.")
 API_ID = int(API_ID)
