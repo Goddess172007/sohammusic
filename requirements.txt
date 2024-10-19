@@ -1,4 +1,4 @@
-numpy==1.24.3  # Adjusted version
+numpy==1.24.3  # Compatible version for Python 3.8
 opencv-python
 aiofiles
 bard
