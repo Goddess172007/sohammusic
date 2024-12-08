@@ -14,7 +14,7 @@ API_ID = getenv("22451491")
 
 API_HASH = getenv("28e74942125f7e4968398ea651cd417b")
 # ------------------------------------------------------
-BOT_TOKEN = getenv("6932352695:AAG7ozdXA3jcwTOznBvNvgQWgOG3QH--NZc") 
+BOT_TOKEN = getenv("6932352695:AAE9_U6bfMujG6bVI03fk41yejpDAo6SUGg") 
 # -------------------------------------------------------
 OWNER_USERNAME = getenv("OWNER_USERNAME","soham_6540")
 # --------------------------------------------------------
